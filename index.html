@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайт</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: space-between;
+
+            background-image: url('https://i.ibb.co/ky57fx8/bg-yellow.png'); /* Введено URL фону */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .header {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff; /* Колір тексту */
+            padding: 20px 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий фон для заголовка */
+        }
+
+        .container {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Прозорий фон для вмісту */
+            border-radius: 10px;
+            max-width: 90%;
+            margin: auto;
+        }
+
+        button {
+            padding: 30px 20px; /* Збільшено вертикальне наповнення */
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(0, 123, 255, 0.8);
+            color: white;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Pop-up modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 20% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+        }
+
+        .modal button {
+            background-color: #28a745;
+            padding: 10px 20px;
+            margin: 10px 0;
+            font-size: 16px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .modal button:hover {
+            background-color: #218838;
+        }
+
+        /* Support modal specific styles */
+        .modal-content p {
+            font-size: 18px;
+            margin-bottom: 15px;
+            word-wrap: break-word;
+        }
+
+        /* Адаптація під мобільні екрани */
+        @media (max-width: 600px) {
+            button {
+                font-size: 16px;
+                padding: 30px 10px; /* Зменшено горизонтальне наповнення для малих екранів */
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">UNIS2 Organization</div> <!-- Додано заголовок -->
+
+    <div class="container">
+        <!-- Подати заявку -->
+        <button id="applyButton">Подати заявку</button>
+
+        <!-- Зв'язатися з нами -->
+        <button onclick="window.location.href='mailto:your-email@example.com'">Зв'язатися з нами</button>
+    </div>
+
+    <!-- Підтримка -->
+    <div class="footer">
+        <p>Підтримайте нас: <a href="#" id="supportLink">Натисніть тут</a></p>
+    </div>
+
+    <!-- Modal window for game selection -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3>Виберіть гру:</h3>
+            <button onclick="openLink('pubg')">PUBG Mobile</button><br>
+            <button onclick="openLink('brawlstars')">Brawl Stars</button>
+        </div>
+    </div>
+
+    <!-- Modal window for support -->
+    <div id="supportModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeSupportModal">&times;</span>
+            <h3>Підтримайте нас</h3>
+            <p>Криптовалютний гаманець:</p>
+            <p><strong>TD9CygHmkHu3h8oScTeFJWvYyQpmVru2Gt</strong></p>
+            <p>Мережа: USDT TRC-20</p>
+        </div>
+    </div>
+
+    <script>
+        const applyButton = document.getElementById('applyButton');
+        const gameModal = document.getElementById('gameModal');
+        const closeModal = document.getElementById('closeModal');
+
+        const supportLink = document.getElementById('supportLink');
+        const supportModal = document.getElementById('supportModal');
+        const closeSupportModal = document.getElementById('closeSupportModal');
+
+        // Show the game modal when "Подати заявку" is clicked
+        applyButton.addEventListener('click', () => {
+            gameModal.style.display = 'block';
+        });
+
+        // Close the game modal when the "x" is clicked
+        closeModal.addEventListener('click', () => {
+            gameModal.style.display = 'none';
+        });
+
+        // Close the game modal when the user clicks outside the modal content
+        window.onclick = function(event) {
+            if (event.target == gameModal) {
+                gameModal.style.display = 'none';
+            }
+        };
+
+        // Show the support modal when "Підтримайте нас" is clicked
+        supportLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            supportModal.style.display = 'block';
+        });
+
+        // Close the support modal when the "x" is clicked
+        closeSupportModal.addEventListener('click', () => {
+            supportModal.style.display = 'none';
+        });
+
+        // Close the support modal when the user clicks outside the modal content
+        window.onclick = function(event) {
+            if (event.target == supportModal) {
+                supportModal.style.display = 'none';
+            }
+        };
+
+        // Function to open links based on the selected game
+        function openLink(game) {
+            if (game === 'pubg') {
+                window.location.href = 'https://forms.gle/mKMUsmGx3UHryQvf9';
+            } else if (game === 'brawlstars') {
+                window.location.href = 'https://forms.gle/a8sjHhgEf5AsK3YS6';
+            }
+            gameModal.style.display = 'none'; // Close the modal after selecting a game
+        }
+    </script>
+
+</body>
+</html>
